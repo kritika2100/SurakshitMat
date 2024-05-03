@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to SurakshitMat</title>
+    <link rel="stylesheet" href="/css/login.css"w >
+    
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to SurakshitMat</h1>
+        <p>A Secure and Reliable E-Voting System</p>
+    </header>
+    <div class="login-card">
+
+        <div class="login-option-buttons">
+            <button onclick="showAdminLogin()">Login as Admin</button>
+            <button onclick="showVoterLogin()">Login as Voter</button>
+        </div>
+        <br><br>
+        <div class="login-section" id="adminSection">
+            <form action="/login_submit1" method="post" id="adminLoginForm">
+                <input type="text" name="email" placeholder="Email">
+                <input type="password" name="pass" placeholder="Password">
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <div class="login-section" id="voterSection">
+            <form action="/login_submit2" method="post" id="voterLoginForm">
+                <input type="text" id="email" name="email" placeholder="Email">
+                <input type="text" id="aadharid" name="aadharid" placeholder="Aadhar Id">
+                <input type="password" id="voterPassword" name="pass" placeholder="Password">
+                <a id="generateOTPButton" href="#" style="display: inline-block; padding: 10px 20px; margin-left: 10%; color:black; text-decoration: none; border-radius: 5px; border: none; cursor: pointer; margin-bottom: 3px;">Generate OTP</a>
+                <input type="number" id="otp" name="otp" placeholder="Enter Otp">
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <div class="not-signup">Not registered? <a href="/signup"> Sign up </a>here</div>
+    </div>
+
+    <script>
+          function showAdminLogin() {
+            document.getElementById("adminSection").classList.add("active");
+            document.getElementById("voterSection").classList.remove("active");
+        }
+
+        function showVoterLogin() {
+            document.getElementById("adminSection").classList.remove("active");
+            document.getElementById("voterSection").classList.add("active");
+        }
+
+        document.getElementById("generateOTPButton").addEventListener("click", function () {
+            var email = document.getElementById("email").value;
+            if (email.trim() !== "") {
+                fetch('/generateOTP?email=' + email)
+                    .then(response => response.text())
+                    .then(otp => {
+                        if (otp !== "false") {
+                            document.getElementById("otp").value = otp;
+                            alert("OTP sent to your email.");
+                        } else {
+                            alert("Failed to generate OTP. Please try again.");
+                        }
+                    });
+            } else {
+                alert("Please enter your email.");
+            }
+        });
+    </script>
+</body>
+
+</html>

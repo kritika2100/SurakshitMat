@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidates</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/images/image3.jpg');
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .candidate {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .candidate img {
+            max-width: 80px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .candidate-info {
+            flex-grow: 1;
+        }
+
+        .candidate-info h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        .candidate-info p {
+            margin: 5px 0;
+            color: #333;
+        }
+
+        /* Navigation bar styles */
+        header {
+            background-color: #06b7b7;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        /* Button styles */
+        .btn {
+            background-color: #06b7b7;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #555;
+        }
+
+        /* Profile card styles */
+        .profile-card {
+            background-color: pink;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .profile-card h2 {
+            color: #333;
+        }
+
+        .profile-card p {
+            color: #333;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <p style="margin-right: 20px;">NAME: <%= adminName %>
+            </p>
+            <p>EMAIL: <%= adminEmail %>
+            </p>
+        </nav>
+        <nav>
+            <a href="/addcandidate">Add Candidate</a>
+            <a href="/registeredvoter">Registered Voter</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <!-- Profile card (hidden by default) -->
+    <div class="container" id="profileCard" style="display: none;">
+        <div class="profile-card">
+            <h2>User Profile</h2>
+            <nav>
+                <p>Name: <span id="userName"></span></p>
+                &nbsp;&nbsp;&nbsp;&nbsp; <!-- Add more non-breaking spaces for extra space -->
+                <p>Email: <span id="userEmail"></span></p>
+            </nav>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Candidates List</h1>
+        <% candidates.forEach(candidate=> { %>
+            <div class="candidate">
+                <img src="/images/party_logos/<%=candidate.party_logo_path %>" alt="<%= candidate.party_name %> Logo">
+                <div class="candidate-info">
+                    <h2>
+                        <%= candidate.full_name %>
+                    </h2>
+                    <p><strong>Party:</strong>
+                        <%= candidate.party_name %>
+                    </p>
+                    <p><strong>Votes:</strong>
+                        <%= candidate.votes %>
+                    </p>
+                </div>
+                <a href="/deletecandidate/<%= candidate.candidate_id %>" class="btn">Delete</a>
+                <a href="/updatecandidate/<%= candidate.candidate_id %>" class="btn">Update</a>
+            </div>
+            <% }); %>
+    </div>
+
+    <script>
+        // Show profile card when Profile button is clicked
+        document.getElementById('profileBtn').addEventListener('click', function () {
+            fetch('/user/profile')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch user profile');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('userName').textContent = data.full_name;
+                    document.getElementById('userEmail').textContent = data.email;
+                    document.getElementById('profileCard').style.display = 'block';
+                })
+                .catch(error => console.error('Error fetching user profile:', error));
+        });
+
+    </script>
+</body>
+
+</html>

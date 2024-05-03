@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Candidates</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/images/image3.jpg');
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgb(6, 183, 183);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        input[type="date"],
+        input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .candidate {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .candidate img {
+            max-width: 80px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .candidate-info {
+            flex-grow: 1;
+        }
+
+        .candidate-info h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        .candidate-info p {
+            margin: 5px 0;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Add New Candidate</h1>
+        <!-- full_name, party_name, dob, nationality, age -->
+        <form action="/addcandidatessubmit" method="post" enctype="multipart/form-data"
+            onsubmit="return validateForm()">
+
+            <label for="full_name">Full Name:</label>
+            <input type="text" id="full_name" name="full_name" placeholder="Enter Your Full Name" /><br><br>
+
+            <label for="party_name">Party Name:</label>
+            <input type="text" id="party_name" name="party_name" placeholder="Enter Your Full Party Name"
+                required><br><br>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" placeholder="Enter Your Date Of Birth" required><br><br>
+
+            <label for="nationality">Nationality:</label>
+            <input type="text" id="nationality" name="nationality" placeholder="Indian" pattern="Indian"
+                title="Only Indian nationality is allowed" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter Your Email" required><br><br>
+
+            <label for="party_logo">Party Logo:</label>
+            <input type="file" id="party_logo_path" name="party_logo_path" accept="image/*" required><br><br>
+
+            <button type="submit">Add Candidate</button>
+        </form>
+        <hr>
+
+        <script>
+            function validateForm() {
+                const fullName = document.getElementById('full_name').value;
+                const dobe = document.getElementById('dob').value;
+                const nationality = document.getElementById('nationality').value;
+                const partyName = document.getElementById('party_name').value;
+
+                // Custom validation for nationality (only 'Indian' allowed)
+                if (nationality.toLowerCase() !== 'indian') {
+                    alert('Only Indian nationality is allowed.');
+                    return false;
+                }
+                var dob = document.getElementById("dob").value;
+                var today = new Date();
+                var birthDate = new Date(dob);
+                var age = today.getFullYear() - birthDate.getFullYear();
+                var m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                if (age < 34) {
+                    alert("You must be at least 35 years old to register as a Candidate.");
+                    return false; // Prevent form submission
+                }
+                return true; // Form submission will proceed if all validations pass
+            }
+        </script>
+</body>
+
+</html>

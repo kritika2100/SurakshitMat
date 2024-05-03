@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="/css/signup.css">
+    <style>
+    .form-group {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    .form-group input {
+        flex: 1;
+        margin-right: 10px;
+    }
+
+    /* Add media query for responsiveness */
+    @media (max-width: 600px) {
+        .form-group {
+            flex-direction: column;
+        }
+    }
+    input[type="date"].placeholder {
+        color: #aaa;
+       
+    }
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h2>SIGNUP AS A VOTER</h2>
+    <% if (errmsg) { %>
+        <p class="error-message">
+            <%= errmsg %>
+        </p>
+        <% } %>
+            <form id="regForm" action="/reg_submit1" method="post" onsubmit="return validateForm()">
+                <div class="form-group">
+                    <input type="text" id="fname" name="fname" placeholder="First Name" required>
+                    <input type="text" id="lname" name="lname" placeholder="Last Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="mname" name="mname" placeholder="Middle Name">
+                    <input type="date" id="dob" name="dob" value="2000-01-01" class="placeholder" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phoneNumber" name="mobileno" placeholder="Phone Number" required>
+                    <input type="text" id="aadharid" name="aadharid" placeholder="Aadhar Id" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="nationality" name="nationality" placeholder="Nationality (Indian Only)"
+                        required pattern="Indian">
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" name="pass" placeholder="Password" required>
+                </div>
+                <button type="submit">Signup</button>
+            </form>
+            <div class="not-signup">
+                <p style="text-align: center;">Already have an account? <a href="/login">Login here</a></p>
+            </div>
+</div>
+<script>
+    function validateForm() {
+        var dob = document.getElementById("dob").value;
+        var today = new Date();
+        var birthDate = new Date(dob);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        if (age < 18) {
+            alert("You must be at least 18 years old to register.");
+            return false; // Prevent form submission
+        }
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 1000); // Redirect after 1 second (adjust as needed)
+        return true; // Change to false if you want to prevent form submission
+    }
+</script>
+</body>
+
+</html>

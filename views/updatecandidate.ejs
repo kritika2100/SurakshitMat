@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Update Candidate</title>
+    <style>
+        body {
+            background-image: url('../images/bg3.png');
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        form {
+            background-color: #FFFDD0;
+            color: black;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 0 auto;
+            width: 60%;
+            max-width: 600px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="file"],
+        select {
+            background-color: white;
+            color: black;
+            border: 1px solid #777777;
+            padding: 8px;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 12px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        function showAlert() {
+            alert("Candidate details updated successfully!");
+            window.location.href = "/candidates"; // Redirect to candidates list after OK is clicked
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Update Candidate</h1>
+    <form action="/updatecandidate" method="POST" enctype="multipart/form-data" onsubmit="showAlert()">
+        <input type="hidden" name="candidate_id" value="<%= candidate_id %>">
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="full_name" placeholder="New Full Name"><br>
+        <label for="partyName">Party Name:</label>
+        <input type="text" id="partyName" name="party_name" placeholder="New Party Name"><br>
+        <label for="partyLogo">Party Logo:</label>
+        <input type="file" id="partyLogo" name="party_logo_path" accept="image/*"><br>
+        <button type="submit">Update Candidate</button>
+    </form>
+</body>
+
+</html>

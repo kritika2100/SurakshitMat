@@ -1,0 +1,271 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navbar */
+nav {
+    background-color: rgb(6, 183, 183);
+    color: #fff;
+    padding: 20px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .logo {
+    font-size: 24px;
+}
+
+nav .nav-links {
+    list-style-type: none;
+}
+
+nav .nav-links li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav .nav-links li:last-child {
+    margin-right: 0;
+}
+
+nav .nav-links li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Header Section */
+header {
+    position: relative; /* Relative positioning for absolute positioning within */
+}
+/* Keyframes for Animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Apply Animation to Heading */
+.header-content h1 {
+    animation: fadeIn 7s ease;
+}
+.header-image {
+    position: absolute;
+    top: 4px;
+    left: 1.37%;
+    bottom:4px;
+    width: 500px; 
+    height: 600px; 
+    z-index: -1; /* Places the image behind other content */
+    opacity: 0.6; /* Adjust the opacity to blend with the background */
+}
+.header-content {
+    margin-left:55%;
+    padding-top: 150px; /* Adjust as needed to position content below the image */
+}
+
+header h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    animation: fadeInDown 1s ease;
+}
+
+header p {
+    font-size: 20px;
+    margin-bottom: 40px;
+    animation: fadeInUp 1s ease;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #FF5733;
+    color: #0c0b0b;
+    text-decoration: none;
+    border-radius: 5px;
+    animation: fadeInUp 1s ease;
+}
+
+.btn:hover {
+    background-color: #FF8C67;
+}
+
+/* Footer Section */
+footer {
+    background-color: rgb(6, 183, 183);
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    margin-top: 20px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Allow flex items to wrap */
+}
+
+.footer-link, .contact-info, .follow-us {
+    margin-right: 39px; /* Add margin between links and paragraphs */
+    text-decoration: none;
+    font-size: 20px;
+    color: #fff; /* White text color */
+}
+
+.footer-link:hover {
+    text-decoration: underline; /* Underline links on hover */
+}
+
+.contact-info, .follow-us {
+    margin-top: 8px; /* Add margin between paragraphs */
+}
+
+.contact-info a, .follow-us a {
+    color: #fff; /* White text color for links */
+}
+
+.contact-info a:hover, .follow-us a:hover {
+    text-decoration: underline; /* Underline links on hover */
+}
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+}
+.footer {
+  position: absolute;
+  top: 115%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 1550px;
+  width: 100%;
+  background: rgb(6, 183, 183);
+  /* border-radius: 3px; */
+}
+.footer .footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 3.5rem;
+  padding: 60px;
+}
+.footer-row .footer-col h4 {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+.footer-col .links {
+  margin-top: 20px;
+}
+.footer-col .links li {
+  list-style: none;
+  margin-bottom: 10px;
+}
+.footer-col .links li a {
+  text-decoration: none;
+  color: #bfbfbf;
+}
+.footer-col .links li a:hover {
+  color: #fff;
+}
+.footer-col p {
+  margin: 20px 0;
+  color: #bfbfbf;
+  max-width: 300px;
+}
+.footer-col form {
+  display: flex;
+  gap: 5px;
+}
+.footer-col input {
+  height: 40px;
+  border-radius: 6px;
+  background: none;
+  width: 100%;
+  outline: none;
+  border: 1px solid #7489C6 ;
+  caret-color: #fff;
+  color: #fff;
+  padding-left: 10px;
+}
+.footer-col input::placeholder {
+  color: #ccc;
+}
+ .footer-col form button {
+  background: #fff;
+  outline: none;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+.footer-col form button:hover {
+  background: #cecccc;
+}
+.footer-col .icons {
+  display: flex;
+  margin-top: 98%;
+  gap: 30px;
+  cursor: pointer;
+}
+.footer-col .icons i {
+  color: #afb6c7;
+  font-size: 24px; /* Adjust the font size as needed */
+}
+.footer-col .icons i:hover  {
+  color: #fff;
+}
+@media (max-width: 768px) {
+  .footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    border-radius: 0;
+  }
+  .footer .footer-row {
+    padding: 20px;
+    gap: 1rem;
+  }
+  .footer-col form {
+    display: block;
+  }
+  .footer-col form :where(input, button) {
+    width: 100%;
+  }
+  .footer-col form button {
+    margin: 10px 0 0 0;
+  }
+}

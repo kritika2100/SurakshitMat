@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voters</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/images/image3.jpg');
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .candidate {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .candidate img {
+            max-width: 80px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .candidate-info {
+            flex-grow: 1;
+        }
+
+        .candidate-info h2 {
+            margin: 0;
+            color: #333;
+        }
+
+        .candidate-info p {
+            margin: 5px 0;
+            color: #333;
+        }
+
+        /* Navigation bar styles */
+        header {
+            background-color: #06b7b7;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav p {
+            margin: 0;
+            padding: 10px;
+            color: #fff;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        /* Button styles */
+        .btn {
+            background-color: #06b7b7;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #555;
+        }
+
+        /* Custom styles for the Vote Now button */
+        .btn-vote {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+
+        .btn-vote:hover {
+            background-color: #054e08;
+            /* Darker Green */
+        }
+
+        .btn-vote-disabled {
+            background-color: #ff6666;
+            /* Red */
+            color: #fff;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            border-radius: 12px;
+            cursor: not-allowed;
+            pointer-events: none;
+            /* Disable pointer events */
+        }
+        .voter-status-voted {
+            background-color: #4CAF50; /* Green */
+        }
+
+        .voter-status-not-voted {
+            background-color: #ff6666; /* Red */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <!-- Voter's name and Aadhar fetched from the server -->
+            <p>NAME: <strong><%= fname %></strong></p>
+            <p>AADHAR ID:<strong><%= aadharid %></strong></p>
+            <p>
+                VOTER STATUS: <p  class="<%= hasVoted ? 'voter-status-voted' : 'voter-status-not-voted' %>"><%= hasVoted ? 'Voted' : 'Not Voted' %></p>
+            </p>
+            
+        </nav>
+        <nav>
+            <a href="/live-result">Live Result</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Candidates List</h1>
+        <% candidates.forEach(candidate => { %>
+        <div class="candidate">
+            <img src="/images/party_logos/<%= candidate.party_logo_path %>" alt="<%= candidate.party_name %> Logo">
+            <div class="candidate-info">
+                <h2>
+                    <%= candidate.full_name %>
+                </h2>
+                <p>
+                    <%= candidate.party_name %>
+                </p>
+            </div>
+            <form action="/vote/<%= candidate.candidate_id %>" method="POST">
+                <button type="submit" class="<%= hasVoted ? 'btn-vote-disabled' : 'btn-vote' %>" <% if (hasVoted) { %> disabled <% } %> onclick="return confirmVote('<%= candidate.candidate_id %>')">Vote Now</button>
+            </form>
+        </div>
+        <% }); %>
+    </div>
+    <script>
+        function confirmVote(candidateId) {
+            // Show confirmation pop-up
+            if (confirm("Are you sure you want to cast your vote?")) {
+                // If user clicks "Yes", submit vote
+                window.location.href = "/vote/" + candidateId;
+            } else {
+                // If user clicks "No", do nothing
+                return;
+            }
+        }
+    </script>
+</body>
+
+</html>

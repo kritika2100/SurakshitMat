@@ -1,0 +1,58 @@
+.container {
+    animation: fadeInDown 0.5s;
+    background-color: #f8f9fa; /* Light gray background */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 1200px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the container horizontally */
+    box-shadow: 0 2px 4px  rgb(6, 183, 183);
+    margin-top:3%;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="tel"],
+input[type="email"],
+button[type="submit"] {
+    width: 100%;
+    background-color: #fff; /* White background */
+    color: #000; /* Black text color */
+    border: 1px solid #ccc; /* Light gray border */
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+input::placeholder {
+    color: #999; /* Light gray placeholder text */
+}
+
+button[type="submit"] {
+    cursor: pointer;
+    background-color: rgb(6, 183, 183); /* Custom color */
+    color: #fff; /* White text color */
+    border: none;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Animation */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

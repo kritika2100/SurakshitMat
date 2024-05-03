@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to SurakshitMat</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+
+<body>
+    <header>
+        <h1>Welcome to SurakshitMat</h1>
+        <p>A secure and reliable e-voting system</p>
+    </header>
+
+    <div class="login-option-buttons">
+        <button onclick="showAdminLogin()">Login as Admin</button>
+    </div>
+
+    <div class="container">
+        <div class="admin-section" id="adminSection">
+            <h2>Admin's Login</h2>
+            <form action="/login_submit1" method="post" id="adminLoginForm">
+                <input type="text" name="email" placeholder="Email">
+                <input type="password" name="pass" placeholder="Password">
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="animated-line"></div>
+    <script>
+        function showAdminLogin() {
+            document.getElementById("adminSection").classList.add("active");
+        }
+
+    </script>
+</body>
+
+</html>
