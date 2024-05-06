@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Result</title>
     <style>
-        body {
+       body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             background-image: url('/images/image3.jpg');
@@ -28,28 +27,61 @@
             color: #333;
         }
 
-        .result-container {
-            margin-top: 20px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        .result-container p {
-            margin: 5px 0;
-            padding: 5px;
-            background-color: #f0f0f0;
-            border-radius: 4px;
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        td img {
+            max-width: 50px;
+            max-height: 50px;
+            display: block;
+            margin: 0 auto;
         }
     </style>
 </head>
-
 <body>
     <div class="container">
         <h1>Live Result</h1>
-        <div class="result-container">
-            <% candidates.forEach((candidate, index) => { %>
-                <p><%= candidate.party_name %>: <%= candidate.votes %></p>
-            <% }); %>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Serial Number</th>
+                    <th>Party Name</th>
+                    <th>Party Logo</th>
+                    <th>Votes Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% candidates.forEach((candidate, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= candidate.party_name %></td>
+                        <td><img src="/images/party_logos/<%= candidate.party_logo_path %>" alt="<%= candidate.party_name %> Logo"></td>
+                        <td><%= candidate.votes %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        <p>Total Votes: <%= totalVotes %></p>
     </div>
 </body>
-
 </html>

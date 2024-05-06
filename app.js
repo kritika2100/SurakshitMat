@@ -419,9 +419,29 @@ app.post('/vote/:id', (req, res) => {
         }
     });
 });
+
+
+// Route to get all registered voters and the party they have voted for
+app.get('/registeredvoters', (req, res) => {
+    const sql = `
+    SELECT voter.*, candidates.party_name AS voted_party 
+    FROM voter 
+    LEFT JOIN candidates ON voter.voterstatus = candidates.candidate_id 
+    WHERE voter.status = 1`;
+    db.query(sql, (err, registeredVoters) => {
+        if (err) {
+            console.error('Error retrieving registered voters:', err);
+            res.status(500).send('Error retrieving registered voters. Please try again.');
+            return;
+        }
+        res.render('registeredvoters', { registeredVoters: registeredVoters });
+    });
+});
+
+
 app.get('/live-result', (req, res) => {
     // Fetch vote counts for all candidates from the database
-    const sql = 'SELECT party_name,votes FROM candidates';
+    const sql = 'SELECT party_name, party_logo_path, votes FROM candidates';
     db.query(sql, (err, result) => {
         if (err) {
             console.error('Error retrieving vote counts:', err);

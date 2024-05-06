@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Voters</title>
+</head>
+<body>
+    <h1>Registered Voters</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>UID</th>
+                <th>Name</th>
+                <th>Date of Birth</th>
+                <th>Mobile Number</th>
+                <th>Email</th>
+                <th>Voted Party</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            <% registeredVoters.forEach(voter => { %>
+                <tr>
+                    <td><%= voter.uid %></td>
+                    <td><%= voter.fname %> <%= voter.mname ? voter.mname + ' ' : '' %><%= voter.lname %></td>
+                    <td><%= voter.dob %></td>
+                    <td><%= voter.mobileno %></td>
+                    <td><%= voter.email %></td>
+                    <td><%= voter.voted_party || 'Not voted yet' %></td>
+                    <!-- Add more columns as needed -->
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>
