@@ -158,7 +158,7 @@ app.post('/reg_submit1', (req, res) => {
                 if (isNaN(email))
                     sendVerifyMail(email);
                 req.session.msg = "Account created,Please Check Your Mail to Verify Your Email.";
-                res.redirect('/');//redirect to login page
+                res.redirect('/login');//redirect to login page
             }
             else {
                 res.render('signup', { errmsg: "Cannot complete signup,try again" });
@@ -363,6 +363,7 @@ app.get('/voter', (req, res) => {
 
 
 // POST route to handle voting
+// POST route to handle voting
 app.post('/vote/:id', (req, res) => {
     const candidateId = req.params.id;
     
@@ -390,25 +391,18 @@ app.post('/vote/:id', (req, res) => {
                     return res.status(403).send('You have already voted.');
                 } else {
                     // User has not voted, proceed with updating vote count
-                    const sqlUpdate = "UPDATE candidates SET votes = votes + 1 WHERE candidate_id = ?";
-                    db.query(sqlUpdate, [candidateId], (err, result) => {
+                    // Update the voted_candidate_id for the user in the voter table
+                    const sqlUpdateVotedCandidate = "UPDATE voter SET voted_candidate_id = ?, voterstatus = 1 WHERE uid = ?";
+                    db.query(sqlUpdateVotedCandidate, [candidateId, userId], (err, result) => {
                         if (err) {
-                            console.error('Error updating vote count:', err);
-                            return res.status(500).send('Error updating vote count. Please try again.');
-                        } else {
-                            // Update the voterstatus to indicate that the user has voted
-                            const sqlUpdateVoterStatus = "UPDATE voter SET voterstatus = 1 WHERE uid = ?";
-                            db.query(sqlUpdateVoterStatus, [userId], (err, result) => {
-                                if (err) {
-                                    console.error('Error updating voter status:', err);
-                                    return res.status(500).send('Error updating voter status. Please try again.');
-                                } else {
-                                    console.log('User vote count updated successfully.');
-                                    // Redirect to the main page after voting
-                                    res.redirect('/');
-                                }
-                            });
+                            console.error('Error updating voted_candidate_id:', err);
+                            return res.status(500).send('Error voting for candidate. Please try again.');
                         }
+
+                        console.log('Voted successfully for candidate:', candidateId);
+
+                        // Redirect to the main page after voting
+                        res.redirect('/');
                     });
                 }
             } else {
@@ -420,23 +414,31 @@ app.post('/vote/:id', (req, res) => {
     });
 });
 
-
 // Route to get all registered voters and the party they have voted for
 app.get('/registeredvoters', (req, res) => {
     const sql = `
     SELECT voter.*, candidates.party_name AS voted_party 
     FROM voter 
-    LEFT JOIN candidates ON voter.voterstatus = candidates.candidate_id 
+    LEFT JOIN candidates ON voter.voted_candidate_id = candidates.candidate_id 
     WHERE voter.status = 1`;
+    
+    console.log('SQL Query:', sql); // Log SQL query for debugging
+    
     db.query(sql, (err, registeredVoters) => {
         if (err) {
-            console.error('Error retrieving registered voters:', err);
+            console.error('Error executing SQL query:', err);
             res.status(500).send('Error retrieving registered voters. Please try again.');
             return;
         }
+
+        // Log registeredVoters to check the data
+        console.log('Registered Voters:', registeredVoters);
+
         res.render('registeredvoters', { registeredVoters: registeredVoters });
     });
 });
+
+
 
 
 app.get('/live-result', (req, res) => {

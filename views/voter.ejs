@@ -150,7 +150,6 @@
         }
     </style>
 </head>
-
 <body>
     <header>
         <nav>
@@ -180,23 +179,45 @@
                     <%= candidate.party_name %>
                 </p>
             </div>
-            <form action="/vote/<%= candidate.candidate_id %>" method="POST">
-                <button type="submit" class="<%= hasVoted ? 'btn-vote-disabled' : 'btn-vote' %>" <% if (hasVoted) { %> disabled <% } %> onclick="return confirmVote('<%= candidate.candidate_id %>')">Vote Now</button>
+            <form id="voteForm_<%= candidate.candidate_id %>" class="vote-form" action="/vote/<%= candidate.candidate_id %>" method="POST">
+                <button type="submit" class="<%= hasVoted ? 'btn-vote-disabled' : 'btn-vote' %> <% if (hasVoted) { %> disabled <% } %>">
+                    Vote Now
+                </button>
             </form>
         </div>
         <% }); %>
     </div>
     <script>
-        function confirmVote(candidateId) {
-            // Show confirmation pop-up
-            if (confirm("Are you sure you want to cast your vote?")) {
-                // If user clicks "Yes", submit vote
-                window.location.href = "/vote/" + candidateId;
-            } else {
-                // If user clicks "No", do nothing
-                return;
-            }
-        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const voteForms = document.querySelectorAll('.vote-form');
+
+            voteForms.forEach(form => {
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault(); // Prevent default form submission
+
+                    const candidateId = this.getAttribute('action').split('/').pop(); // Extract candidate ID from form action
+                    const confirmation = confirm("Are you sure you want to cast your vote?");
+
+                    if (confirmation) {
+                        // If user confirms, submit vote via AJAX
+                        fetch(`/vote/${candidateId}`, {
+                            method: 'POST',
+                            credentials: 'same-origin', // Ensure session cookies are sent
+                        }).then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to vote for candidate');
+                            }
+                            // Handle success (e.g., update UI)
+                            console.log('Voted successfully for candidate:', candidateId);
+                            form.querySelector('button').classList.add('btn-vote-disabled', 'disabled'); // Disable the button after voting
+                        }).catch(error => {
+                            // Handle error
+                            console.error('Error voting for candidate:', error);
+                        });
+                    }
+                });
+            });
+        });
     </script>
 </body>
 

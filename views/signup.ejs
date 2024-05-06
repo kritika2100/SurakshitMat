@@ -34,10 +34,8 @@
 <div class="container">
     <h2>SIGNUP AS A VOTER</h2>
     <% if (errmsg) { %>
-        <p class="error-message">
-            <%= errmsg %>
-        </p>
-        <% } %>
+        <p class="error-message"><%= errmsg %></p>
+    <% } %>    
             <form id="regForm" action="/reg_submit1" method="post" onsubmit="return validateForm()">
                 <div class="form-group">
                     <input type="text" id="fname" name="fname" placeholder="First Name" required>
