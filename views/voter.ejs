@@ -8,7 +8,9 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('/images/image3.jpg');
+           background-image: url('/images/bg.jpeg');
+           background-repeat: no-repeat;
+           background-size: cover;
             margin: 0;
             padding: 0;
         }
@@ -57,31 +59,37 @@
 
         /* Navigation bar styles */
         header {
-            background-color: #06b7b7;
-            color: #fff;
+            background-color: white;
+            color: #5849e0;
             padding: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            font-weight: bold;
         }
 
         nav {
             display: flex;
             align-items: center;
+            height:100px;
         }
 
         nav p {
             margin: 0;
             padding: 10px;
-            color: #fff;
+            color: #5849e0;
+            font-size: larger;
+            font-weight: bold;
         }
 
         nav a {
-            color: #fff;
+            color: #5849e0;
             text-decoration: none;
             padding: 10px;
             margin: 0 5px;
             border-radius: 5px;
+            font-size: larger;
         }
 
         nav a:hover {
@@ -90,7 +98,7 @@
 
         /* Button styles */
         .btn {
-            background-color: #06b7b7;
+            background-color:#5849e0;
             color: #fff;
             border: none;
             padding: 8px 16px;
@@ -137,88 +145,155 @@
             font-size: 16px;
             margin: 4px 2px;
             border-radius: 12px;
+            border: none;
             cursor: not-allowed;
             pointer-events: none;
             /* Disable pointer events */
         }
+
         .voter-status-voted {
-            background-color: #4CAF50; /* Green */
+            background-color: #4CAF50;
+            /* Green */
         }
 
         .voter-status-not-voted {
-            background-color: #ff6666; /* Red */
+            background-color: #ff6666;
+            /* Red */
+        }
+
+        .camera-container {
+            position: fixed;
+            bottom: 20px;
+            /* Adjust as needed */
+            right: 20px;
+            /* Adjust as needed */
+            z-index: 1000;
+            /* Ensure the camera container stays above other elements */
+            overflow: hidden;
+        }
+
+        .camera-container video {
+            width: 200px;
+            /* Adjust the size of the video as needed */
+            height: auto;
+            display: block;
         }
     </style>
 </head>
+
 <body>
     <header>
         <nav>
             <!-- Voter's name and Aadhar fetched from the server -->
-            <p>NAME: <strong><%= fname %></strong></p>
-            <p>AADHAR ID:<strong><%= aadharid %></strong></p>
+            <p>Name: <strong>
+                    <%= fname %>
+                </strong></p>
+            <p>Aadhar Id:<strong>
+                    <%= aadharid %>
+                </strong></p>
             <p>
-                VOTER STATUS: <p  class="<%= hasVoted ? 'voter-status-voted' : 'voter-status-not-voted' %>"><%= hasVoted ? 'Voted' : 'Not Voted' %></p>
+                Place:<strong>
+                    <%=district %> , <%=state%>
+                </strong>
             </p>
-            
+
         </nav>
         <nav>
+            <p>
+
+                VOTER STATUS:
+            <p class="<%= hasVoted ? 'voter-status-voted' : 'voter-status-not-voted' %>">
+                <%= hasVoted ? 'Voted' : 'Not Voted' %>
+            </p>
+            </p>
             <a href="/live-result">Live Result</a>
             <a href="/logout">Logout</a>
         </nav>
     </header>
     <div class="container">
         <h1>Candidates List</h1>
-        <% candidates.forEach(candidate => { %>
-        <div class="candidate">
-            <img src="/images/party_logos/<%= candidate.party_logo_path %>" alt="<%= candidate.party_name %> Logo">
-            <div class="candidate-info">
-                <h2>
-                    <%= candidate.full_name %>
-                </h2>
-                <p>
-                    <%= candidate.party_name %>
-                </p>
+        <% candidates.forEach(candidate=> { %>
+            <div class="candidate">
+                <img src="/images/party_logos/<%= candidate.party_logo_path %>" alt="<%= candidate.party_name %> Logo">
+                <div class="candidate-info">
+                    <h2>
+                        <%= candidate.full_name %>
+                    </h2>
+                    <p>
+                        <%= candidate.party_name %>
+                    </p>
+                </div>
+                <form id="voteForm_<%= candidate.candidate_id %>" class="vote-form"
+                    action="/vote/<%= candidate.candidate_id %>" method="POST">
+                    <button type="submit"
+                        class="<%= hasVoted ? 'btn-vote-disabled' : 'btn-vote' %> <% if (hasVoted) { %> disabled <% } %>">
+                        Vote Now
+                    </button>
+                </form>
             </div>
-            <form id="voteForm_<%= candidate.candidate_id %>" class="vote-form" action="/vote/<%= candidate.candidate_id %>" method="POST">
-                <button type="submit" class="<%= hasVoted ? 'btn-vote-disabled' : 'btn-vote' %> <% if (hasVoted) { %> disabled <% } %>">
-                    Vote Now
-                </button>
-            </form>
-        </div>
-        <% }); %>
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const voteForms = document.querySelectorAll('.vote-form');
+            <% }); %>
+                <div class="camera-container">
+                    <video id="camera-stream" autoplay></video>
+                </div>
 
-            voteForms.forEach(form => {
-                form.addEventListener('submit', function (event) {
-                    event.preventDefault(); // Prevent default form submission
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const voteForms = document.querySelectorAll('.vote-form');
 
-                    const candidateId = this.getAttribute('action').split('/').pop(); // Extract candidate ID from form action
-                    const confirmation = confirm("Are you sure you want to cast your vote?");
+                        voteForms.forEach(form => {
+                            form.addEventListener('submit', function (event) {
+                                event.preventDefault(); // Prevent default form submission
 
-                    if (confirmation) {
-                        // If user confirms, submit vote via AJAX
-                        fetch(`/vote/${candidateId}`, {
-                            method: 'POST',
-                            credentials: 'same-origin', // Ensure session cookies are sent
-                        }).then(response => {
-                            if (!response.ok) {
-                                throw new Error('Failed to vote for candidate');
-                            }
-                            // Handle success (e.g., update UI)
-                            console.log('Voted successfully for candidate:', candidateId);
-                            form.querySelector('button').classList.add('btn-vote-disabled', 'disabled'); // Disable the button after voting
-                        }).catch(error => {
-                            // Handle error
-                            console.error('Error voting for candidate:', error);
+                                const candidateId = this.getAttribute('action').split('/').pop(); // Extract candidate ID from form action
+
+                                const recordConfirmation = confirm("You are being recorded.\nDo you want to proceed with voting?");
+
+                                if (recordConfirmation) {
+                                    // If user confirms recording, start camera immediately
+                                    setTimeout(() => {
+                                        startCamera(candidateId);
+                                    }, 2000); // 2-second delay
+                                }
+                            });
                         });
+                    });
+
+                    // Function to start camera
+                    function startCamera(candidateId) {
+                        navigator.mediaDevices.getUserMedia({ video: true })
+                            .then(function (stream) {
+                                const video = document.getElementById('camera-stream');
+                                video.srcObject = stream;
+
+                                // Show the confirmation dialog for voting after the delay
+                                setTimeout(() => {
+                                    const voteConfirmation = confirm("Do you want to cast your vote?");
+                                    if (voteConfirmation) {
+                                        // Proceed with voting via AJAX
+                                        fetch(`/vote/${candidateId}`, {
+                                            method: 'POST',
+                                            credentials: 'same-origin', // Ensure session cookies are sent
+                                        }).then(response => {
+                                            if (!response.ok) {
+                                                throw new Error('Failed to vote for candidate');
+                                            }
+                                            // Handle success (e.g., update UI)
+                                            console.log('Voted successfully for candidate:', candidateId);
+                                            // Redirect to the main page after voting
+                                            window.location.href = '/';
+                                        }).catch(error => {
+                                            // Handle error
+                                            console.error('Error voting for candidate:', error);
+                                        });
+                                    }
+                                }, 2000); // 2-second delay
+                            })
+                            .catch(function (err) {
+                                console.error('Error accessing camera:', err);
+                                alert('Error accessing camera. Please check if your camera is properly connected.');
+                            });
                     }
-                });
-            });
-        });
-    </script>
+                </script>
 </body>
 
 </html>

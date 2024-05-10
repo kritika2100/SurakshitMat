@@ -8,16 +8,31 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('/images/image3.jpg');
+            background-image: url('/images/bg.jpeg');
+            background-repeat: no-repeat;
+            background-size: cover;
             margin: 0px;
             padding: 0;
         }
 
+        .parent-container {
+            display: flex;
+
+        }
+
+        .candidates-container {
+            width: 30%;
+            transition: width 0.3s ease;
+            height: 565px;
+            background-color: #fff;
+            margin-left: -1%;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
         .container {
-            max-width: 1200px;
-            margin: 2px auto;
+            flex-grow: 1;
+            margin-left: 20px;
             padding: 20px;
-            margin-top:3%;
             background-color: #f0f0f0;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.004);
@@ -55,14 +70,14 @@
             color: #333;
         }
 
-        /* Navigation bar styles */
         header {
-            background-color: #06b7b7;
-            color: #fff;
+            background-color:white;
+            color: #5849e0;
             padding: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 70px;
         }
 
         nav {
@@ -71,20 +86,25 @@
         }
 
         nav a {
-            color: #fff;
+            color:#5849e0;
             text-decoration: none;
             padding: 10px;
             margin: 0 5px;
-            border-radius: 5px;
+            border-radius: 5px;font-weight: 300;
+            font-weight: bold;
+            
         }
-
+        nav p{
+            font-weight: bold;
+        }
         nav a:hover {
             background-color: #555;
         }
 
         /* Button styles */
         .btn {
-            background-color: #06b7b7;
+            font-size: 17px;
+            background-color: #5849e0;
             color: #fff;
             border: none;
             padding: 8px 16px;
@@ -115,77 +135,361 @@
             color: #333;
             margin-bottom: 10px;
         }
+
+        .form-group {
+            display: flex;
+            margin-bottom: 10px;
+            height: 100px;
+            margin-top: -1%;
+        }
+
+        .form-group input {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        /* Add media query for responsiveness */
+        @media (max-width: 600px) {
+            .form-group {
+                flex-direction: column;
+            }
+        }
+
+        .form-group select {
+            flex: 1;
+            margin-right: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            /* Remove this line to remove the border */
+            border-radius: 4px;
+            font-size: 16px;
+            /* Adjust width as needed */
+            width: 150px;
+            /* Example width */
+            height: 45px;
+            margin-top: 1%;
+        }
+
+        /* Style the disabled option */
+        .form-group select option:disabled {
+            color: #aaa;
+        }
+
+        /* Style the select dropdown */
+        .form-group select {
+            border: none;
+            /* Remove border */
+            outline: none;
+            /* Remove outline */
+            -webkit-appearance: none;
+            /* Remove default arrow in Chrome/Safari */
+            -moz-appearance: none;
+            /* Remove default arrow in Firefox */
+            appearance: none;
+            /* Remove default arrow in other browsers */
+            background-image: url("data:image/svg+xml;utf8,<svg fill='#555' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M5 7l5 5 5-5z'/></svg>");
+            /* Add custom arrow */
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            background-size: 20px 20px;
+            padding-right: 30px;
+            /* Adjust padding to accommodate arrow */
+        }
+
+
+        .findcandidate {
+            font-size: larger;
+            font-weight: 700;
+            padding-top: 1.5%;
+            text-align: center;
+        }
+
+        .textchoose {
+            font-weight: 700;
+            padding-top: 2.5%;
+        }
+
+        .btn2 {
+            background-color:#5849e0;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: -80%;
+            text-decoration: none;
+            margin-top: 40%;
+            width: 120px;
+            height: 45px;
+        }
+
+        .btn2:hover {
+            background-color: #555;
+        }
+
+        #candidatesForm {
+            width: 70%;
+            top: 12.5%;
+            left: 0;
+            height: 565px;
+            border-left: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .state-container,
+        .district-container {
+            padding-top: 30%;
+            margin-left: 1.5%;
+            width: 500px;
+            padding-right: 10%;
+            margin-top: -20%;
+            /* Adjust spacing between containers */
+        }
+
+        .textchoose {
+            font-weight: 700;
+            padding-top: 2.5%;
+        }
+
+        .form-group {
+            display: flex;
+            margin-bottom: 10px;
+            height: 100%;
+        }
+
+        .form-group select {
+            flex: 1;
+            margin-right: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            height: 45px;
+        }
+
+        /* Style the disabled option */
+        .form-group select option:disabled {
+            color: #aaa;
+        }
+
+        /* Style the select dropdown */
+        .form-group select {
+            background-image: url("data:image/svg+xml;utf8,<svg fill='#555' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M5 7l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            background-size: 20px 20px;
+            padding-right: 30px;
+            outline: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .findcandidate {
+            height: 60%;
+            font-size: large;
+            font-weight: 900;
+        }
     </style>
 </head>
 
 <body>
     <header>
         <nav>
-            <p style="margin-right: 20px;">NAME: <%= adminName %>
+            <p style="margin-right: 20px; ">NAME: <%= adminName %>
             </p>
             <p>EMAIL: <%= adminEmail %>
             </p>
         </nav>
         <nav>
+            <button id="toggleFormBtn" class="btn">Choose State</button>
             <a href="/addcandidate">Add Candidate</a>
             <a href="/registeredvoters">Registered Voter</a>
             <a href="/logout">Logout</a>
         </nav>
     </header>
+    <div class="parent-container">
+        <div class="candidates-container" id="candidatesContainer">
+            <div id="candidatesForm">
+                <form action="/candidates" method="post">
+                    <div class="form-group">
 
-    <!-- Profile card (hidden by default) -->
-    <div class="container" id="profileCard" style="display: none;">
-        <div class="profile-card">
-            <h2>User Profile</h2>
-            <nav>
-                <p>Name: <span id="userName"></span></p>
-                &nbsp;&nbsp;&nbsp;&nbsp; <!-- Add more non-breaking spaces for extra space -->
-                <p>Email: <span id="userEmail"></span></p>
-            </nav>
-
+                        <div class="state-container">
+                            <label for="state" class="textchoose">Choose State&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <select id="state" name="state" onchange="populateDistricts()" required>
+                                <option value="" selected disabled>Select State</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Andaman and Nicobar Island">Andaman and Nicobar Island</option>
+                                <option value="Arunachal Pradesh	">Arunachal Pradesh </option>
+                                <option value="Assam">Assam</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="Chandigarh">Chandigarh</option>
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and
+                                    Daman
+                                    and
+                                    Diu
+                                </option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Goa">Goa</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Ladakh">Ladakh</option>
+                                <option value="Lakshadweep">Lakshadweep</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Manipur">Manipur</option>
+                                <option value="Meghalaya">Meghalaya</option>
+                                <option value="Mizoram">Mizoram</option>
+                                <option value="Nagaland">Nagaland</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Puducherry">Puducherry</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Rajasthan">Rajasthan </option>
+                                <option value="Sikkim">Sikkim</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Tripura">Tripura</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="West Bengal">West Bengal</option>
+                                <option value=""></option>
+                            </select><br><br>
+                        </div>
+                        <div class="district-container">
+                            <label for="district" class="textchoose">Choose District&nbsp;&nbsp;&nbsp;</label>
+                            <select id="district" name="district" required>
+                                <option value="" selected disabled>Select District</option>
+                            </select><br><br>
+                        </div>
+                        <button type="submit" class="btn2">SEARCH DETAILS</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="container">
+            <h1>List of Candidates</h1>
+            <% candidates.forEach(candidate=> { %>
+                <div class="candidate">
+                    <img src="/images/party_logos/<%=candidate.party_logo_path %>"
+                        alt="<%= candidate.party_name %> Logo">
+                    <div class="candidate-info">
+                        <h2>
+                            <%= candidate.full_name %>
+                        </h2>
+                        <p><strong>Party:</strong>
+                            <%= candidate.party_name %>
+                        </p>
+                        <p><strong>Votes:</strong>
+                            <%= candidate.votes %>
+                        </p>
+                    </div>
+                    <a href="/deletecandidate/<%= candidate.candidate_id %>" class="btn">Delete</a>
+                    <a href="/updatecandidate/<%= candidate.candidate_id %>" class="btn">Update</a>
+                </div>
+                <% }); %>
         </div>
     </div>
-
-    <div class="container">
-        <h1>Candidates List</h1>
-        <% candidates.forEach(candidate=> { %>
-            <div class="candidate">
-                <img src="/images/party_logos/<%=candidate.party_logo_path %>" alt="<%= candidate.party_name %> Logo">
-                <div class="candidate-info">
-                    <h2>
-                        <%= candidate.full_name %>
-                    </h2>
-                    <p><strong>Party:</strong>
-                        <%= candidate.party_name %>
-                    </p>
-                    <p><strong>Votes:</strong>
-                        <%= candidate.votes %>
-                    </p>
-                </div>
-                <a href="/deletecandidate/<%= candidate.candidate_id %>" class="btn">Delete</a>
-                <a href="/updatecandidate/<%= candidate.candidate_id %>" class="btn">Update</a>
-            </div>
-            <% }); %>
-    </div>
-
     <script>
-        // Show profile card when Profile button is clicked
-        document.getElementById('profileBtn').addEventListener('click', function () {
-            fetch('/user/profile')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch user profile');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    document.getElementById('userName').textContent = data.full_name;
-                    document.getElementById('userEmail').textContent = data.email;
-                    document.getElementById('profileCard').style.display = 'block';
-                })
-                .catch(error => console.error('Error fetching user profile:', error));
+        const districtsByState = {
+            "Andhra Pradesh": ["Visakhapatnam", "Guntur", "Kurnool"],
+            "Andaman and Nicobar Island": ["Andaman and Nicobar Island"],
+            "Arunachal Pradesh": ["Papum Pare", "East Kameng", "Changlang"],
+            "Assam": ["Kamrup", "Dibrugarh", "Cachar"],
+            "Bihar": ["Patna", "Gaya", "Muzaffarpur"],
+            "Chandigarh": ["Chandigarh"],
+            "Chhattisgarh": ["Raipur", "Bilaspur", "Durg"],
+            "Dadra and Nagar Haveli and Daman and Diu": ["Dadra and Nagar Haveli and Daman and Diu"],
+            "Delhi": ["Delhi"],
+            "Goa": ["North Goa", "South Goa"],
+            "Gujarat": ["Ahmedabad", "Surat", "Vadodara"],
+            "Haryana": ["Faridabad", "Gurgaon", "Hisar"],
+            "Himachal Pradesh": ["Shimla", "Kangra", "Mandi"],
+            "Jammu and Kashmir": ["Jammu and Kashmir"],
+            "Jharkhand": ["Ranchi", "Dhanbad", "Jamshedpur"],
+            "Karnataka": ["Bangalore Urban", "Mysore", "Belgaum"],
+            "Kerala": ["Thiruvananthapuram", "Ernakulam", "Kozhikode"],
+            "Ladakh": ["Ladakh"],
+            "Lakshadweep": ["Lakshadweep"],
+            "Madhya Pradesh": ["Indore", "Bhopal", "Jabalpur"],
+            "Maharashtra": ["Mumbai", "Pune", "Nagpur"],
+            "Manipur": ["Imphal West", "Imphal East", "Thoubal"],
+            "Meghalaya": ["East Khasi Hills", "West Garo Hills", "East Jaintia Hills"],
+            "Mizoram": ["Aizawl", "Lunglei", "Champhai"],
+            "Nagaland": ["Dimapur", "Kohima", "Mokokchung"],
+            "Odisha": ["Khordha", "Cuttack", "Sundargarh"],
+            "Punjab": ["Ludhiana", "Amritsar", "Patiala"],
+            "Puducherry": ["Puducherry"],
+            "Rajasthan": ["Jaipur", "Jodhpur", "Udaipur"],
+            "Sikkim": ["East Sikkim", "West Sikkim", "North Sikkim"],
+            "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai"],
+            "Telangana": ["Hyderabad", "Warangal", "Rangareddy"],
+            "Tripura": ["West Tripura", "South Tripura", "Gomati"],
+            "Uttar Pradesh": ["Lucknow", "Kanpur", "Varanasi"],
+            "Uttarakhand": ["Dehradun", "Haridwar", "Nainital"],
+            "West Bengal": ["Kolkata", "Howrah", "North 24 Parganas"]
+            // Add more states and districts as needed
+        };
+
+        // Toggle candidates container with smooth transition
+        function toggleCandidatesContainer() {
+            const candidatesContainer = document.getElementById('candidatesContainer');
+            const containerWidth = getComputedStyle(candidatesContainer).width;
+
+            // Toggle container width with smooth transition
+            if (containerWidth === '0px' || containerWidth === '0%') {
+                candidatesContainer.style.transition = 'width 0.3s ease';
+                candidatesContainer.style.width = '30%';
+            } else {
+                candidatesContainer.style.transition = 'width 0.3s ease';
+                candidatesContainer.style.width = '0%';
+            }
+        }
+
+        // Call toggleCandidatesContainer() on button click
+        document.getElementById('toggleFormBtn').addEventListener('click', function () {
+            toggleCandidatesContainer();
         });
 
+        // Adjust container size dynamically based on window size
+        window.addEventListener('resize', function () {
+            const candidatesContainer = document.getElementById('candidatesContainer');
+            if (window.innerWidth <= 600) {
+                candidatesContainer.style.width = '100%';
+            } else {
+                candidatesContainer.style.width = candidatesContainer.offsetWidth ? '30%' : '0';
+            }
+        });
+
+        function populateDistricts() {
+            const stateSelect = document.getElementById("state");
+            const districtSelect = document.getElementById("district");
+            const selectedState = stateSelect.value;
+
+            districtSelect.innerHTML = '<option value="" selected disabled>Select District</option>';
+
+            if (selectedState in districtsByState) {
+                districtsByState[selectedState].forEach(district => {
+                    const option = document.createElement("option");
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Add event listener to state select to toggle candidates container visibility
+        document.getElementById('state').addEventListener('change', function () {
+            const candidatesContainer = document.querySelector('.candidates-container');
+            candidatesContainer.style.display = this.value ? 'block' : 'none';
+        });
     </script>
 </body>
 

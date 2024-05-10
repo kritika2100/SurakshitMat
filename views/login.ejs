@@ -2,76 +2,78 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login to SurakshitMat</title>
-    <link rel="stylesheet" href="/css/login.css"w >
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login to SurakshitMat</title>
+  <link rel="stylesheet" href="/css/login.css">
+
 </head>
 
 <body>
-    <header>
-        <h1>Welcome to SurakshitMat</h1>
-        <p>A Secure and Reliable E-Voting System</p>
-    </header>
-    <div class="login-card">
+  <div class="navbar">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/signup">Voter's Signup</a>
+    <a href="/contactus">Contact Us</a>
+  </div>
+  <section class="wrapper">
+    <div class="form signup">
+      <header>Admin</header>
+      <form action="/login_submit1" method="post" id="adminLoginForm">
+        <input type="text" name="email" placeholder="Email">
+        <input type="password" name="pass" placeholder="Password">
+        <input type="submit" />
+      </form>
+    </div>
 
-        <div class="login-option-buttons">
-            <button onclick="showAdminLogin()">Login as Admin</button>
-            <button onclick="showVoterLogin()">Login as Voter</button>
-        </div>
-        <br><br>
-        <div class="login-section" id="adminSection">
-            <form action="/login_submit1" method="post" id="adminLoginForm">
-                <input type="text" name="email" placeholder="Email">
-                <input type="password" name="pass" placeholder="Password">
-                <button type="submit">Login</button>
-            </form>
-        </div>
-
-        <div class="login-section" id="voterSection">
-            <form action="/login_submit2" method="post" id="voterLoginForm">
-                <input type="text" id="email" name="email" placeholder="Email">
-                <input type="text" id="aadharid" name="aadharid" placeholder="Aadhar Id">
-                <input type="password" id="voterPassword" name="pass" placeholder="Password">
-                <a id="generateOTPButton" href="#" style="display: inline-block; padding: 10px 20px; margin-left: 10%; color:black; text-decoration: none; border-radius: 5px; border: none; cursor: pointer; margin-bottom: 3px;">Generate OTP</a>
-                <input type="number" id="otp" name="otp" placeholder="Enter Otp">
-                <button type="submit">Login</button>
-            </form>
-        </div>
-
-        <div class="not-signup">Not registered? <a href="/signup"> Sign up </a>here</div>
+    <div class="form login">
+      <header>User</header>
+      <form action="/login_submit2" method="post" id="voterLoginForm">
+        <input type="text" id="email" name="email" placeholder="Email">
+        <input type="text" id="aadharid" name="aadharid" placeholder="Aadhar Id">
+        <input type="password" id="voterPassword" name="pass" placeholder="Password">
+        <input type="submit" onclick="generateAndSendOTP()" value="Login" />
+      </form>
     </div>
 
     <script>
-          function showAdminLogin() {
-            document.getElementById("adminSection").classList.add("active");
-            document.getElementById("voterSection").classList.remove("active");
-        }
+      const wrapper = document.querySelector(".wrapper"),
+        signupHeader = document.querySelector(".signup header"),
+        loginHeader = document.querySelector(".login header");
 
-        function showVoterLogin() {
-            document.getElementById("adminSection").classList.remove("active");
-            document.getElementById("voterSection").classList.add("active");
-        }
+      loginHeader.addEventListener("click", () => {
+        wrapper.classList.add("active");
+      });
+      signupHeader.addEventListener("click", () => {
+        wrapper.classList.remove("active");
+      });
 
-        document.getElementById("generateOTPButton").addEventListener("click", function () {
-            var email = document.getElementById("email").value;
-            if (email.trim() !== "") {
-                fetch('/generateOTP?email=' + email)
-                    .then(response => response.text())
-                    .then(otp => {
-                        if (otp !== "false") {
-                            document.getElementById("otp").value = otp;
-                            alert("OTP sent to your email.");
-                        } else {
-                            alert("Failed to generate OTP. Please try again.");
-                        }
-                    });
-            } else {
-                alert("Please enter your email.");
-            }
+      async function generateAndSendOTP() {
+        const email = document.getElementById("email").value;
+        const aadharid = document.getElementById("aadharid").value;
+        const pass = document.getElementById("voterPassword").value;
+
+        // Call the backend route to generate and send OTP
+        const response = await fetch('/generateOTP', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, aadharid, pass })
         });
+
+        if (response.ok) {
+          // Redirect to the OTP page if OTP generation is successful
+          window.location.href = '/generateotppage';
+        } else {
+          // Display error message if OTP generation fails
+          const errorMessage = await response.text();
+          alert(errorMessage); // You can replace alert with other error handling mechanisms
+        }
+      }
     </script>
+  </section>
 </body>
+
 
 </html>

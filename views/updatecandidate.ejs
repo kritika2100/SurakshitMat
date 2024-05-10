@@ -4,8 +4,10 @@
 <head>
     <title>Update Candidate</title>
     <style>
-        body {
-            background-image: url('/images/image3.jpg');
+           body {
+            background-image:url('/images/bg.jpeg');
+            background-repeat: no-repeat;
+            background-size: cover;
             color: #ffffff;
             font-family: Arial, sans-serif;
         }
@@ -17,14 +19,14 @@
         }
 
         form {
-            /* background-color: rgba(255, 255, 255, 0.8); Updated background color with transparency */
+            background-color: rgba(255, 255, 255, 0.8);
             color: black;
             padding: 20px;
             border-radius: 8px;
             margin: 0 auto;
             width: 60%;
             max-width: 600px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Added box shadow for depth */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
 
         label {
@@ -35,21 +37,23 @@
         input[type="text"],
         input[type="file"],
         select {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.8); /* Change to rgba to add transparency */
             color: black;
-            border: 1px solid #777777;
             padding: 8px;
             border-radius: 4px;
             width: 100%;
             box-sizing: border-box;
             margin-bottom: 12px;
-            transition: border-color 0.3s ease-in-out;
+            transition: background-color 0.3s ease-in-out; /* Add transition for hover effect */
+            border: none; /* Remove border */
+            outline: none; /* Remove outline */
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
         }
 
         input[type="text"]:hover,
         input[type="file"]:hover,
         select:hover {
-            border-color: #555555;
+            background-color: rgba(255, 255, 255, 0.9); /* Lighten background on hover */
         }
 
         button {

@@ -8,17 +8,22 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('/images/image3.jpg');
+            background-image: url('/images/bg.jpeg');
+            background-repeat: no-repeat;
+            background-size: cover;
             margin: 0;
             padding: 0;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1200px;
+            /* Adjust the maximum width as needed */
             margin: 0 auto;
+            /* Center the container horizontally */
+            margin-top: 3%;
             padding: 20px;
-            box-shadow: 0 2px 4px rgb(6, 183, 183);
             border-radius: 8px;
+            background-color: whitesmoke;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
@@ -35,34 +40,37 @@
             font-weight: bold;
         }
 
-        input[type="text"],
-        input[type="number"],
-        input[type="file"],
-        input[type="date"],
-        input[type="email"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-        }
+        
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="tel"],
+input[type="email"],
+button[type="submit"] {
+    width: 100%;
+    background-color: #fff; /* White background */
+    color: #000; /* Black text color */
+    border: 1px solid #ccc; /* Light gray border */
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding and border in width calculation */
+}
 
-        button[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+input::placeholder {
+    color: #999; /* Light gray placeholder text */
+}
 
-        button[type="submit"]:hover {
-            background-color: #0056b3;
-        }
+button[type="submit"] {
+    cursor: pointer;
+    background-color: #5849e0; /* Custom color */
+    color: #fff; /* White text color */
+    border: none;
+}
 
+button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
         .candidate {
             border-bottom: 1px solid #ddd;
             padding: 15px 0;
@@ -89,53 +97,259 @@
             margin: 5px 0;
             color: #777;
         }
+
+        .form-group {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .form-group input {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        /* Add media query for responsiveness */
+        @media (max-width: 600px) {
+            .form-group {
+                flex-direction: column;
+            }
+        }
+
+        input[type="date"]::placeholder {
+            color: #aaa;
+        }
+
+        .form-group select {
+            flex: 1;
+            margin-right: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        /* Style the disabled option */
+        .form-group select option:disabled {
+            color: #aaa;
+        }
+        .form-group > div {
+    flex: 1;
+    margin-right: 10px;
+    margin-bottom: 10px; /* Add vertical spacing between input elements */
+}
+
+/* Add media query for responsiveness */
+@media (max-width: 600px) {
+    .form-group > div {
+        flex-basis: 100%; /* On smaller screens, make each input take up full width */
+        margin-right: 0; /* Remove horizontal spacing */
+    }
+}
+
+/* Style input elements */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group input[type="text"],
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Style button */
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: #5849e0;
+    color: #fff;
+}
+
+/* Add hover effect for button */
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+/* .form-group label {
+    display: block; /* Display the label as a block element */
+    /* margin-bottom: 5px; /* Add some space below the label */
+
+
+.form-group input[type="file"] {
+    display: block; /* Display the file input as a block element */
+    margin-top: 5px; /* Add some space above the file input */
+}
     </style>
 </head>
 
 <body>
     <div class="container">
         <h1>Add New Candidate</h1>
-        <!-- full_name, party_name, dob, nationality, age -->
         <form action="/addcandidatessubmit" method="post" enctype="multipart/form-data"
             onsubmit="return validateForm()">
+            <div class="form-group">
+                <div>
+                    <label for="full_name">Full Name:</label>
+                    <input type="text" id="full_name" name="full_name" placeholder="Enter Your Full Name" required>
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter Your Email" required><br><br>
+                </div>
+            </div>
 
-            <label for="full_name">Full Name:</label>
-            <input type="text" id="full_name" name="full_name" placeholder="Enter Your Full Name" /><br><br>
+            <div class="form-group">
+                <div>
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" id="dob" name="dob" placeholder="Enter Your Date Of Birth" required>
+                </div>
+                <div>
+                    <label for="nationality">Nationality:</label>
+                    <input type="text" id="nationality" name="nationality" placeholder="Indian" pattern="Indian"
+                        title="Only Indian nationality is allowed" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label for="state">State:</label>
+                    <select id="state" name="state" onchange="populateDistricts()" required>
+                        <option value="" selected disabled>Select State</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Andaman and Nicobar Island">Andaman and Nicobar Island</option>
+                        <option value="Arunachal Pradesh	">Arunachal Pradesh </option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chandigarh">Chandigarh</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and
+                            Diu</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Ladakh">Ladakh</option>
+                        <option value="Lakshadweep">Lakshadweep</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Puducherry">Puducherry</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan </option>
+                        <option value="Sikkim">Sikkim</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="West Bengal">West Bengal</option>
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div>
 
-            <label for="party_name">Party Name:</label>
-            <input type="text" id="party_name" name="party_name" placeholder="Enter Your Full Party Name"
-                required><br><br>
-
-            <label for="dob">Date of Birth:</label>
-            <input type="date" id="dob" name="dob" placeholder="Enter Your Date Of Birth" required><br><br>
-
-            <label for="nationality">Nationality:</label>
-            <input type="text" id="nationality" name="nationality" placeholder="Indian" pattern="Indian"
-                title="Only Indian nationality is allowed" required><br><br>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Enter Your Email" required><br><br>
-
-            <label for="party_logo">Party Logo:</label>
-            <input type="file" id="party_logo_path" name="party_logo_path" accept="image/*" required><br><br>
+                    <label for="district">District:</label>
+                    <select id="district" name="district" required>
+                        <option value="" selected disabled>Select District</option>
+                    </select><br><br>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <label for="party_name">Party Name:</label>
+                    <input type="text" id="party_name" name="party_name" placeholder="Enter Your Full Party Name" required>
+                </div>
+                <div>
+                    <label for="party_logo">Party Logo:</label>
+                    <input type="file" id="party_logo_path" name="party_logo_path" accept="image/*" required>
+                </div>
+            </div>
+            
 
             <button type="submit">Add Candidate</button>
         </form>
         <hr>
 
         <script>
+            const districtsByState = {
+                "Andhra Pradesh": ["Visakhapatnam", "Guntur", "Kurnool"],
+                "Andaman and Nicobar Island": ["Andaman and Nicobar Island"],
+                "Arunachal Pradesh": ["Papum Pare", "East Kameng", "Changlang"],
+                "Assam": ["Kamrup", "Dibrugarh", "Cachar"],
+                "Bihar": ["Patna", "Gaya", "Muzaffarpur"],
+                "Chandigarh": ["Chandigarh"],
+                "Chhattisgarh": ["Raipur", "Bilaspur", "Durg"],
+                "Dadra and Nagar Haveli and Daman and Diu": ["Dadra and Nagar Haveli and Daman and Diu"],
+                "Delhi": ["Delhi"],
+                "Goa": ["North Goa", "South Goa"],
+                "Gujarat": ["Ahmedabad", "Surat", "Vadodara"],
+                "Haryana": ["Faridabad", "Gurgaon", "Hisar"],
+                "Himachal Pradesh": ["Shimla", "Kangra", "Mandi"],
+                "Jammu and Kashmir": ["Jammu and Kashmir"],
+                "Jharkhand": ["Ranchi", "Dhanbad", "Jamshedpur"],
+                "Karnataka": ["Bangalore Urban", "Mysore", "Belgaum"],
+                "Kerala": ["Thiruvananthapuram", "Ernakulam", "Kozhikode"],
+                "Ladakh": ["Ladakh"],
+                "Lakshadweep": ["Lakshadweep"],
+                "Madhya Pradesh": ["Indore", "Bhopal", "Jabalpur"],
+                "Maharashtra": ["Mumbai", "Pune", "Nagpur"],
+                "Manipur": ["Imphal West", "Imphal East", "Thoubal"],
+                "Meghalaya": ["East Khasi Hills", "West Garo Hills", "East Jaintia Hills"],
+                "Mizoram": ["Aizawl", "Lunglei", "Champhai"],
+                "Nagaland": ["Dimapur", "Kohima", "Mokokchung"],
+                "Odisha": ["Khordha", "Cuttack", "Sundargarh"],
+                "Punjab": ["Ludhiana", "Amritsar", "Patiala"],
+                "Puducherry": ["Puducherry"],
+                "Rajasthan": ["Jaipur", "Jodhpur", "Udaipur"],
+                "Sikkim": ["East Sikkim", "West Sikkim", "North Sikkim"],
+                "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai"],
+                "Telangana": ["Hyderabad", "Warangal", "Rangareddy"],
+                "Tripura": ["West Tripura", "South Tripura", "Gomati"],
+                "Uttar Pradesh": ["Lucknow", "Kanpur", "Varanasi"],
+                "Uttarakhand": ["Dehradun", "Haridwar", "Nainital"],
+                "West Bengal": ["Kolkata", "Howrah", "North 24 Parganas"]
+                // Add more states and districts as needed
+            };
+
+            function populateDistricts() {
+                const stateSelect = document.getElementById("state");
+                const districtSelect = document.getElementById("district");
+                const selectedState = stateSelect.value;
+
+                districtSelect.innerHTML = '<option value="" selected disabled>Select District</option>';
+
+                if (selectedState in districtsByState) {
+                    districtsByState[selectedState].forEach(district => {
+                        const option = document.createElement("option");
+                        option.value = district;
+                        option.textContent = district;
+                        districtSelect.appendChild(option);
+                    });
+                }
+            }
             function validateForm() {
                 const fullName = document.getElementById('full_name').value;
-                const dobe = document.getElementById('dob').value;
+                const dob = document.getElementById('dob').value;
                 const nationality = document.getElementById('nationality').value;
-                const partyName = document.getElementById('party_name').value;
 
-                // Custom validation for nationality (only 'Indian' allowed)
                 if (nationality.toLowerCase() !== 'indian') {
                     alert('Only Indian nationality is allowed.');
                     return false;
                 }
-                var dob = document.getElementById("dob").value;
+
                 var today = new Date();
                 var birthDate = new Date(dob);
                 var age = today.getFullYear() - birthDate.getFullYear();
@@ -145,11 +359,12 @@
                 }
                 if (age < 34) {
                     alert("You must be at least 35 years old to register as a Candidate.");
-                    return false; // Prevent form submission
+                    return false;
                 }
-                return true; // Form submission will proceed if all validations pass
+                return true;
             }
         </script>
+    </div>
 </body>
 
 </html>

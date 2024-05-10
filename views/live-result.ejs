@@ -7,18 +7,64 @@
     <style>
        body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            background-image: url('/images/image3.jpg');
+            background-image:url('/images/bg.jpeg');
+            background-repeat: no-repeat;
+            background-size: cover;
             margin: 0;
             padding: 0;
         }
 
+        nav {
+            background-color: #5849e0;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+nav h1{
+    color: white;
+}
+        .live-status {
+            display: flex;
+            align-items: center;
+            margin-left:78%;
+        }
+
+        .live-status .box {
+            width: 50px;
+            height: 30px;
+            background-color: #4CAF50;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .live-status .circle {
+            width: 10px;
+            height: 10px;
+            background-color: whitesmoke;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
         .container {
             max-width: 800px;
-            margin: 20px auto;
             padding: 20px;
+            margin-left: 40%;
             background-color: #fff;
             border-radius: 8px;
+            width:75%;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
@@ -56,32 +102,267 @@
             display: block;
             margin: 0 auto;
         }
+/* CSS for candidatesForm */
+#candidatesForm {
+    width: 30%;
+    position: fixed;
+    top: 12.5%;
+    left: 0;
+    height: 100%;
+    background-color: #fff;
+    border-left: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    z-index: 999;
+}
+
+.form-group select option:disabled {
+    color: #aaa;
+}
+
+/* Style the select dropdown */
+.form-group select {
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='#555' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M5 7l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 20px 20px;
+    padding-right: 30px;
+    margin-bottom: 20px;
+}
+
+.findcandidate {
+    font-size: larger;
+    width: 100%;
+    font-weight: 700;
+    padding-top: 1.5%;
+    text-align: center;
+    padding-bottom: 10px;;
+}
+
+.textchoose {
+    font-weight: 700;
+    padding-top: 2.5%;
+    display: inline-block;
+
+}
+
+
+.btn2 {
+    background-color: #5849e0;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 0.5;
+    width: 100%;
+    height: 45px;
+    font-weight: 700;
+    font-size: 100%;
+}
+
+.btn2:hover {
+    background-color: #555;
+}
+
+/* Proper line spacing */
+.form-group {
+    margin-bottom: 20px;
+}
+nav a {
+            color: black;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Live Result</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Serial Number</th>
-                    <th>Party Name</th>
-                    <th>Party Logo</th>
-                    <th>Votes Count</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% candidates.forEach((candidate, index) => { %>
+    <nav>
+        <h1>SurakshitMat</h1>
+        <div class="live-status">
+            <div class="box">Live</div>
+            <div class="circle"></div>
+        </div>
+        <h3><a href="/">Home</a></h3>
+    </nav>
+    <div class="candidates-container">
+        <div id="candidatesForm">
+            <form action="/live-result" method="post" >
+                <div class="form-group">
+                    <div class="findcandidate">Fetch  Results &nbsp;&nbsp;</div>
+                    <label for="state" class="textchoose">Choose State&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <select id="state" name="state" onchange="populateDistricts()" required>
+                        <option value="" selected disabled>Select State</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Andaman and Nicobar Island">Andaman and Nicobar Island</option>
+                        <option value="Arunachal Pradesh	">Arunachal Pradesh </option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chandigarh">Chandigarh</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu
+                        </option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Ladakh">Ladakh</option>
+                        <option value="Lakshadweep">Lakshadweep</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Puducherry">Puducherry</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan </option>
+                        <option value="Sikkim">Sikkim</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="West Bengal">West Bengal</option>
+                        <option value=""></option>
+                    </select><br><br>
+    
+                    <label for="district" class="textchoose">Choose District&nbsp;&nbsp;&nbsp;</label>
+                    <select id="district" name="district" required>
+                        <option value="" selected disabled>Select District</option>
+                    </select><br><br>
+                    <button type="submit" class="btn2">FETCH DETAILS</button>
+                </div>
+            </form>
+            </div>
+        <div class="container">
+            <h1>Live Result</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Serial Number</th>
+                        <th>Party Name</th>
+                        <th>Party Logo</th>
+                        <th>Votes Count</th>
+                    </tr>
+                </thead>
+                <tbody id="candidateTableBody">
+                   <% candidates.forEach((candidate, index) => { %>
                     <tr>
                         <td><%= index + 1 %></td>
                         <td><%= candidate.party_name %></td>
-                        <td><img src="/images/party_logos/<%= candidate.party_logo_path %>" alt="<%= candidate.party_name %> Logo"></td>
-                        <td><%= candidate.votes %></td>
+                        <td><img src="/images/party_logos/<%= candidate.party_logo_path %>" alt="Party Logo" style="max-width: 50px; max-height: 50px;"></td>
+                        <td><%= candidate.votesCount %></td>
                     </tr>
                 <% }); %>
-            </tbody>
-        </table>
-        <p>Total Votes: <%= totalVotes %></p>
+                </tbody>
+                
+            </table>
+        </div>
     </div>
+
+    <script>
+        const districtsByState = {
+            "Andhra Pradesh": ["Visakhapatnam", "Guntur", "Kurnool"],
+            "Andaman and Nicobar Island": ["Andaman and Nicobar Island"],
+            "Arunachal Pradesh": ["Papum Pare", "East Kameng", "Changlang"],
+            "Assam": ["Kamrup", "Dibrugarh", "Cachar"],
+            "Bihar": ["Patna", "Gaya", "Muzaffarpur"],
+            "Chandigarh": ["Chandigarh"],
+            "Chhattisgarh": ["Raipur", "Bilaspur", "Durg"],
+            "Dadra and Nagar Haveli and Daman and Diu": ["Dadra and Nagar Haveli and Daman and Diu"],
+            "Delhi": ["Delhi"],
+            "Goa": ["North Goa", "South Goa"],
+            "Gujarat": ["Ahmedabad", "Surat", "Vadodara"],
+            "Haryana": ["Faridabad", "Gurgaon", "Hisar"],
+            "Himachal Pradesh": ["Shimla", "Kangra", "Mandi"],
+            "Jammu and Kashmir": ["Jammu and Kashmir"],
+            "Jharkhand": ["Ranchi", "Dhanbad", "Jamshedpur"],
+            "Karnataka": ["Bangalore Urban", "Mysore", "Belgaum"],
+            "Kerala": ["Thiruvananthapuram", "Ernakulam", "Kozhikode"],
+            "Ladakh": ["Ladakh"],
+            "Lakshadweep": ["Lakshadweep"],
+            "Madhya Pradesh": ["Indore", "Bhopal", "Jabalpur"],
+            "Maharashtra": ["Mumbai", "Pune", "Nagpur"],
+            "Manipur": ["Imphal West", "Imphal East", "Thoubal"],
+            "Meghalaya": ["East Khasi Hills", "West Garo Hills", "East Jaintia Hills"],
+            "Mizoram": ["Aizawl", "Lunglei", "Champhai"],
+            "Nagaland": ["Dimapur", "Kohima", "Mokokchung"],
+            "Odisha": ["Khordha", "Cuttack", "Sundargarh"],
+            "Punjab": ["Ludhiana", "Amritsar", "Patiala"],
+            "Puducherry": ["Puducherry"],
+            "Rajasthan": ["Jaipur", "Jodhpur", "Udaipur"],
+            "Sikkim": ["East Sikkim", "West Sikkim", "North Sikkim"],
+            "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai"],
+            "Telangana": ["Hyderabad", "Warangal", "Rangareddy"],
+            "Tripura": ["West Tripura", "South Tripura", "Gomati"],
+            "Uttar Pradesh": ["Lucknow", "Kanpur", "Varanasi"],
+            "Uttarakhand": ["Dehradun", "Haridwar", "Nainital"],
+            "West Bengal": ["Kolkata", "Howrah", "North 24 Parganas"]
+            // Add more states and districts as needed
+        };
+        function populateDistricts() {
+            const stateSelect = document.getElementById("state");
+            const districtSelect = document.getElementById("district");
+            const selectedState = stateSelect.value;
+
+            districtSelect.innerHTML = '<option value="" selected disabled>Select District</option>';
+
+            if (selectedState in districtsByState) {
+                districtsByState[selectedState].forEach(district => {
+                    const option = document.createElement("option");
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        }
+        // Fetch data and update the table
+        document.addEventListener('DOMContentLoaded', function() {
+    fetch('/live-result')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const tableBody = document.getElementById('candidateTableBody');
+            tableBody.innerHTML = ''; // Clear previous data
+
+            data.candidates.forEach((candidate, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${candidate.party_name}</td>
+                    <td><img src="/images/party_logos/${candidate.party_logo_path}" alt="Party Logo" style="max-width: 50px; max-height: 50px;"></td>
+                    <td>${candidate.votesCount}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+});
+    </script>
 </body>
 </html>

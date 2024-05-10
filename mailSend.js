@@ -1,10 +1,10 @@
-const { generateOTP } = require('./utils.js');
+ const { generateOTP } = require('./utils.js');
 const nodemailer = require('nodemailer');
 async function sendOTPEmail(to_email) {
     let transporter = nodemailer.createTransport({
         service: "gmail",
         host: "smtp.gmail.com",
-        port: 465,
+        port: 587,
         secure: true, // Set secure to true
         auth: {
             user: "2105ksharma@gmail.com",
@@ -60,8 +60,13 @@ async function sendVerifyMail(to_email) {
     else
         return false;
 }
-
+const verifyOTP = (enteredOTP, storedOTP) => {
+    // Validate the entered OTP
+    return enteredOTP.trim() !== '' && enteredOTP === storedOTP;
+}
 module.exports = {
     sendOTPEmail,
-    sendVerifyMail
+    sendVerifyMail,
+    generateOTP, 
+    verifyOTP
 };

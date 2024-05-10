@@ -4,7 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registered Voters</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image:url('/images/bg.jpeg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #5849e0;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:hover {
+            background-color: #ddd;
+        }
+    </style>
 </head>
+
 <body>
     <h1>Registered Voters</h1>
     <table>
@@ -19,16 +68,30 @@
             </tr>
         </thead>
         <tbody>
-            <% registeredVoters.forEach(voter => { %>
+            <% registeredVoters.forEach(voter=> { %>
                 <tr>
-                    <td><%= voter.uid %></td>
-                    <td><%= voter.fname %> <%= voter.mname ? voter.mname + ' ' : '' %><%= voter.lname %></td>
-                    <td><%= voter.dob %></td>
-                    <td><%= voter.mobileno %></td>
-                    <td><%= voter.email %></td>
-                    <td><%= voter.voted_party || 'Not voted yet' %></td>
+                    <td>
+                        <%= voter.uid %>
+                    </td>
+                    <td>
+                        <%= voter.fname %>
+                            <%= voter.mname ? voter.mname + ' ' : '' %>
+                                <%= voter.lname %>
+                    </td>
+                    <td>
+                        <%= voter.dob %>
+                    </td>
+                    <td>
+                        <%= voter.mobileno %>
+                    </td>
+                    <td>
+                        <%= voter.email %>
+                    </td>
+                    <td>
+                        <%= voter.voted_party || 'Not voted yet' %>
+                    </td>
                 </tr>
-            <% }); %>
+                <% }); %>
         </tbody>
     </table>
 </body>

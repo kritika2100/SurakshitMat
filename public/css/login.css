@@ -1,212 +1,193 @@
+/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
-    background-color: #ffffff; /* White background */
-    color: #333333; /* Dark text color */
-    font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+  margin-top: -41%;
+  width:500px;
+  margin-left: 30%;
+  background-color:white;
 }
 
-header {
-    text-align: center;
-    padding: 50px 0;
+.navbar a {
+  float: left;
+  display: block;
+  color: #5849e0;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
 }
 
-header h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
-    color: #333333; /* Dark text color */
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+.wrapper {
+  position: relative;
+  max-width: 470px;
+  width: 100%;
+  margin-left: -65%;
+  border-radius: 12px;
+  padding: 20px 30px 120px;
+  background: #5849e0;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
 }
 
-header p {
-    font-size: 18px;
-    margin-bottom: 20px;
-    color: #333333; /* Dark text color */
+.wrapper.active .form.login header {
+  opacity: 1;
+}
+
+.wrapper.active .signup header {
+  opacity: 0.6;
+}
+
+.wrapper form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.wrapper.active .form.login {
+  bottom: -15%;
+  border-radius: 35%;
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #ffffff; /* White background */
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  position: relative;
+  max-width: 470px;
+  width: 100%;
+  border-radius: 12px;
+  padding: 20px 30px 120px;
+  background:#5849e0;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-.admin-section,
-.voter-section {
-    width: 100%;
-    display: none;
-    margin-bottom: 20px;
+.form.login {
+  position: absolute;
+  left: 50%;
+  bottom: -86%;
+  transform: translateX(-50%);
+  width: calc(100% + 220px);
+  padding: 20px 140px;
+  border-radius: 50%;
+  height: 100%;
+  background: #fff;
+  transition: all 0.6s ease;
 }
 
-.admin-section.active,
-.voter-section.active {
-    display: block;
+.container.active .form.login {
+  bottom: -15%;
+  border-radius: 35%;
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
 }
 
-.admin-section h2,
-.voter-section h2 {
-    margin-bottom: 10px;
-    font-size: 20px;
-    color: #333333; /* Dark text color */
+.form header {
+  font-size: 30px;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: #f5f5f5; /* Light gray background */
-    color: #333333; /* Dark text color */
+.form.login header {
+  color: #333;
+  opacity: 0.6;
 }
 
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: rgb(6, 183, 183); /* Custom color */
-    color: #ffffff; /* White text color */
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.container.active .form.login header {
+  opacity: 1;
 }
 
-button:hover {
-    background-color: #4aa69e; /* Darker version of custom color on hover */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
 }
 
-.animated-line {
-    width: 100%;
-    background-color: rgb(6, 183, 183); /* Custom color */
-    height: 2px;
-    margin-bottom: 20px;
-    animation: growLine 0.5s ease-out;
-}
-#generateOTPButton:hover {
-    color:white;
-    background-color: rgb(148, 149, 148);
-}
-.login-option-buttons {
-    text-align: center;
-    margin-top: 20px;
-    color: #ffffff; /* White text color */
-    animation: fadeInDown 1s ease;
-    display: flex;
+form input {
+  height: 60px;
+  outline: none;
+  border: none;
+  padding: 0 15px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #333;
+  border-radius: 8px;
+  background: #fff;
 }
 
-.login-option-buttons button {
-    margin: 0 10px;
-    flex: 1;
-}
-.not-signup{
-    margin: 0 10px;
-    flex: 1;
-    width: 100%;
-    padding: 10px;
-    margin-left: 10px;
-}
-#otp {
-    padding: 10px;
-    border: none;
-    border-radius: 0; /* Remove border-radius */
-    border-bottom: 2px solid black; /* Add bottom border */
-    margin-bottom: 3px;
-    margin-left: 10px; /* Adjust margin for spacing */
+.form.login input {
+  border: 1px solid #aaa;
 }
 
-/* CSS for input field on focus */
-#otp:focus {
-    outline: none; /* Remove default focus outline */
-    border-color: dodgerblue; /* Change border color on focus */
-}
-@keyframes growLine {
-    from {
-        width: 0;
-    }
-    to {
-        width: 100%;
-    }
+.form.login input:focus {
+  box-shadow: 0 1px 0 #ddd;
 }
 
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-.login-card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    max-width: 1000px;
-    width: 100%;
-    margin: 0 auto; /* Center the card horizontally */
-    margin-top: 1%;
-    box-shadow: 0 2px 4px  rgb(6, 183, 183);
+form .checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.login-option-buttons button {
-    padding: 8px 16px;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    margin-right: 10px;
-    width: 50%;
+.checkbox input[type="checkbox"] {
+  height: 16px;
+  width: 16px;
+  accent-color: #fff;
+  cursor: pointer;
 }
 
-.login-section {
-    display: none;
+.checkbox label {
+  cursor: pointer;
+  color: #fff;
 }
 
-.login-section.active {
-    display: block;
+a {
+  color: #333;
+  text-decoration: none;
 }
 
-.login-section h2 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
+a:hover {
+  text-decoration: underline;
 }
 
-.login-section input[type="text"],
-.login-section input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+input[type="submit"] {
+  margin-top: 10px;
+  padding: none;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-.login-section button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    border: none;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.form.login input[type="submit"] {
+  background: #5849e0;
+  color: #fff;
+  border: none;
+  margin-top: -2%;
 }
-
-.login-section button:hover {
-    background-color: #0056b3;
+.form.login input[type="text"],[type="password"]{
+  margin-top: -3%;
 }
-
-.not-signup {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 14px;
+.form.login {
+  margin-top: -1%;
 }

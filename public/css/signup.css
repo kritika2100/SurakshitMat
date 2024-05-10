@@ -1,9 +1,14 @@
+.body{
+    background-image:url('/images/bg.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .container {
     animation: fadeInDown 0.5s;
     background-color: #f8f9fa; /* Light gray background */
     padding: 20px;
-    border-radius: 10px;
-    max-width: 1200px; /* Adjust the maximum width as needed */
+    border-radius: 10px; 
+   max-width: 1200px; /* Adjust the maximum width as needed */
     margin: 0 auto; /* Center the container horizontally */
     box-shadow: 0 2px 4px  rgb(6, 183, 183);
     margin-top:3%;

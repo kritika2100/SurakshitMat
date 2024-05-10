@@ -23,10 +23,28 @@
             flex-direction: column;
         }
     }
-    input[type="date"].placeholder {
-        color: #aaa;
-       
+    input[type="date"]::placeholder {
+    color: #aaa;
     }
+    .form-group select {
+    flex: 1;
+    margin-right: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Style the disabled option */
+.form-group select option:disabled {
+    color: #aaa;
+}
+
+.success-message {
+    color: green;
+    font-weight: bold;
+}
+
 </style>
 </head>
 
@@ -35,7 +53,7 @@
     <h2>SIGNUP AS A VOTER</h2>
     <% if (errmsg) { %>
         <p class="error-message"><%= errmsg %></p>
-    <% } %>    
+        <% } %>
             <form id="regForm" action="/reg_submit1" method="post" onsubmit="return validateForm()">
                 <div class="form-group">
                     <input type="text" id="fname" name="fname" placeholder="First Name" required>
@@ -53,6 +71,54 @@
                     <input type="text" id="nationality" name="nationality" placeholder="Nationality (Indian Only)"
                         required pattern="Indian">
                     <input type="email" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="state"></label>
+                    <select id="state" name="state" onchange="populateDistricts()" required>
+                        <option value="" selected disabled>Select State</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Andaman and Nicobar Island">Andaman and Nicobar Island</option>
+                        <option value="Arunachal Pradesh	">Arunachal Pradesh	</option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chandigarh">Chandigarh</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Ladakh">Ladakh</option>
+                        <option value="Lakshadweep">Lakshadweep</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Puducherry">Puducherry</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan	</option>
+                        <option value="Sikkim">Sikkim</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="West Bengal">West Bengal</option>
+                        <option value=""></option>
+                    </select><br><br>
+        
+                    <label for="district"></label>
+                    <select id="district" name="district" required>
+                        <option value="" selected disabled>Select District</option>
+                    </select><br><br>
                 </div>
                 <div class="form-group">
                     <input type="password" id="password" name="pass" placeholder="Password" required>
@@ -82,6 +148,62 @@
         }, 1000); // Redirect after 1 second (adjust as needed)
         return true; // Change to false if you want to prevent form submission
     }
+    const districtsByState = {
+                "Andhra Pradesh": ["Visakhapatnam", "Guntur", "Kurnool"],
+                "Andaman and Nicobar Island":["Andaman and Nicobar Island"],
+                "Arunachal Pradesh": ["Papum Pare", "East Kameng", "Changlang"],
+                "Assam": ["Kamrup", "Dibrugarh", "Cachar"],
+                "Bihar": ["Patna", "Gaya", "Muzaffarpur"],
+                "Chandigarh":["Chandigarh"],
+                "Chhattisgarh": ["Raipur", "Bilaspur", "Durg"],
+                "Dadra and Nagar Haveli and Daman and Diu":["Dadra and Nagar Haveli and Daman and Diu"],
+                "Delhi":["Delhi"],
+                "Goa": ["North Goa", "South Goa"],
+                "Gujarat": ["Ahmedabad", "Surat", "Vadodara"],
+                "Haryana": ["Faridabad", "Gurgaon", "Hisar"],
+                "Himachal Pradesh": ["Shimla", "Kangra", "Mandi"],
+                "Jammu and Kashmir":["Jammu and Kashmir"],
+                "Jharkhand": ["Ranchi", "Dhanbad", "Jamshedpur"],
+                "Karnataka": ["Bangalore Urban", "Mysore", "Belgaum"],
+                "Kerala": ["Thiruvananthapuram", "Ernakulam", "Kozhikode"],
+                "Ladakh":["Ladakh"],
+                "Lakshadweep":["Lakshadweep"],
+                "Madhya Pradesh": ["Indore", "Bhopal", "Jabalpur"],
+                "Maharashtra": ["Mumbai", "Pune", "Nagpur"],
+                "Manipur": ["Imphal West", "Imphal East", "Thoubal"],
+                "Meghalaya": ["East Khasi Hills", "West Garo Hills", "East Jaintia Hills"],
+                "Mizoram": ["Aizawl", "Lunglei", "Champhai"],
+                "Nagaland": ["Dimapur", "Kohima", "Mokokchung"],
+                "Odisha": ["Khordha", "Cuttack", "Sundargarh"],
+                "Punjab": ["Ludhiana", "Amritsar", "Patiala"],
+                "Puducherry":["Puducherry"],
+                "Rajasthan": ["Jaipur", "Jodhpur", "Udaipur"],
+                "Sikkim": ["East Sikkim", "West Sikkim", "North Sikkim"],
+                "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai"],
+                "Telangana": ["Hyderabad", "Warangal", "Rangareddy"],
+                "Tripura": ["West Tripura", "South Tripura", "Gomati"],
+                "Uttar Pradesh": ["Lucknow", "Kanpur", "Varanasi"],
+                "Uttarakhand": ["Dehradun", "Haridwar", "Nainital"],
+                "West Bengal": ["Kolkata", "Howrah", "North 24 Parganas"]
+                // Add more states and districts as needed
+            };
+
+            function populateDistricts() {
+            const stateSelect = document.getElementById("state");
+            const districtSelect = document.getElementById("district");
+            const selectedState = stateSelect.value;
+
+            districtSelect.innerHTML = '<option value="" selected disabled>Select District</option>';
+
+            if (selectedState in districtsByState) {
+                districtsByState[selectedState].forEach(district => {
+                    const option = document.createElement("option");
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        }
 </script>
 </body>
 
