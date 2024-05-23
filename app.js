@@ -20,10 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 3000;
-// Set EJS as the view engine
-app.set('view engine', 'ejs');
-// Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
+
 // Multer configuration for file uploads
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {

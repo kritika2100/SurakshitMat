@@ -8,7 +8,7 @@ async function sendOTPEmail(to_email) {
         secure: true, // Set secure to true
         auth: {
             user: "2105ksharma@gmail.com",
-            pass: "kzpuouvguilcbmcz"
+            pass: "buqlympm zoxsujcw"
         }
     });
 
